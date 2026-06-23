@@ -1,0 +1,472 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Constitutional Articles Library | NyayaAI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-container": "#7c839b",
+                        "primary-container": "#131b2e",
+                        "tertiary": "#000000",
+                        "on-background": "#191c1e",
+                        "inverse-primary": "#bec6e0",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#0b1c30",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#2a1700",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "surface-tint": "#565e74",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f7f9fb",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container": "#eceef0",
+                        "secondary-fixed": "#ffddb8",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "primary": "#000000",
+                        "on-tertiary-container": "#75859d",
+                        "outline-variant": "#c6c6cd",
+                        "on-surface-variant": "#45464d",
+                        "on-secondary-container": "#684000",
+                        "surface": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "secondary": "#855300",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fea619",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "button": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .active-filter {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1 !important;
+        }
+        /* Custom sidebar width override */
+        .sidebar-width { width: 280px; }
+        .main-margin { margin-left: 280px; }
+    
+        .nav-item {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            transition: all 200ms ease-in-out;
+        }
+        .nav-item:hover {
+            background-color: #1E293B !important;
+            color: #ffffff !important;
+        }
+        .nav-item:hover .material-symbols-outlined {
+            color: #F59E0B !important;
+        }
+        .nav-item.active-nav {
+            background-color: #273449 !important;
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        .nav-item.active-nav .material-symbols-outlined {
+            color: #F59E0B !important;
+            font-variation-settings: 'FILL' 1 !important;
+        }
+        </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full sidebar-width bg-primary-container border-r border-outline-variant/20 shadow-sm flex flex-col py-base z-50">
+<div class="px-6 py-6 mb-2"><span class="text-headline-md font-headline-md font-bold text-white">NyayaAI</span></div>
+<nav class="flex-1 px-4 space-y-1 py-2">
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="dashboard.html">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="ai-assistant.html">
+<span class="material-symbols-outlined mr-3">smart_toy</span>
+<span class="font-body-md text-body-md">AI Assistant</span>
+</a>
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="knowledge-hub.html">
+<span class="material-symbols-outlined mr-3">description</span>
+<span class="font-body-md text-body-md">Knowledge Hub</span>
+</a>
+<a class="nav-item active-nav flex items-center px-4 py-3 cursor-pointer active:scale-95" href="constitutional-articles.html">
+<span class="material-symbols-outlined mr-3">menu_book</span>
+<span class="font-body-md text-body-md">Constitutional Articles</span>
+</a>
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="acts-laws.html">
+<span class="material-symbols-outlined mr-3">gavel</span>
+<span class="font-body-md text-body-md">Acts &amp; Laws</span>
+</a>
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="rights-hub.html">
+<span class="material-symbols-outlined mr-3">verified_user</span>
+<span class="font-body-md text-body-md">Rights Hub</span>
+</a>
+<a class="nav-item flex items-center px-4 py-3 cursor-pointer active:scale-95" href="consultation-history.html">
+<span class="material-symbols-outlined mr-3">history</span>
+<span class="font-body-md text-body-md">Consultation History</span>
+</a>
+</nav>
+<div class="px-4 py-6 border-t border-white/10">
+<div class="space-y-1">
+<a class="flex items-center px-4 py-2 hover:text-white transition-all text-sm text-white/60" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">account_circle</span>Profile
+                    </a>
+<a class="flex items-center px-4 py-2 hover:text-white transition-all text-sm text-white/60" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">logout</span>Sign Out
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 main-margin min-h-screen flex flex-col">
+<!-- Top Header -->
+<header class="h-16 bg-surface/80 backdrop-blur-xl sticky top-0 right-0 z-40 border-b border-outline-variant/20 flex items-center justify-between px-margin-desktop">
+<div class="flex-1"></div>
+<div class="flex items-center gap-6">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border-2 border-surface"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="font-button text-button text-primary">Adv. Elena Thorne</p>
+<p class="text-[12px] text-on-surface-variant">Senior Legal Consultant</p>
+</div>
+<img alt="User Profile" class="w-9 h-9 rounded-full border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2psvOQvLHxlqYhvoNsbL8ZTyzV1wg2H-nNJIP54ArSZJx66Cbu3rwXGzveeWFi20nIhOMvquoE3EXn-QPjeOfQGf59PtoYlnxzQW8uM4etwe9FOkWDQTOHcX4Yp-KbhCnHC4OL2Ksc42AbwTQCJQQpYVOmcOe2Mpcw_ABHrSuSDdTKfkAebVfZbQfBVRvHmQAZHAIXyeyWUeDbX7J-1Vbjz9JptrWT9H0NE84y0YlSjUQSTJj2HDIOX4ZoDCO4czGKLSESA9tfMY">
+</div>
+</div>
+</header>
+<!-- Articles Library Content -->
+<div class="flex-1">
+<!-- Centered Content Container -->
+<div class="max-w-container-max mx-auto py-12">
+<!-- Hero / Header Section -->
+<section class="pb-16 px-margin-desktop text-center">
+<div class="flex flex-col items-center space-y-6">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary-container/20 text-secondary border border-secondary/20">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Library of Sovereignty</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary max-w-3xl leading-tight">Constitutional Articles Library</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                                Explore the foundational pillars of Indian democracy. A comprehensive, AI-assisted guide to every article, provision, and amendment within the Constitution.
+                            </p>
+</div>
+</section>
+<!-- Search & Filter Bar -->
+<section class="sticky top-16 z-30 bg-surface/90 backdrop-blur-md py-6 border-y border-outline-variant/20 mb-12">
+<div class="px-margin-desktop flex flex-col md:flex-row gap-6 items-center justify-between">
+<!-- Search Field -->
+<div class="relative w-full md:max-w-md group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-outline-variant/50 rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-md" placeholder="Search by Article No. or Keyword (e.g. Equality)..." type="text">
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-3 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto scrollbar-hide">
+<button class="active-filter whitespace-nowrap px-5 py-2 rounded-full border border-outline-variant font-button text-button transition-all hover:bg-surface-container-high">All Articles</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full border border-outline-variant font-button text-button transition-all hover:bg-surface-container-high text-on-surface-variant">Fundamental Rights</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full border border-outline-variant font-button text-button transition-all hover:bg-surface-container-high text-on-surface-variant">Directive Principles</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full border border-outline-variant font-button text-button transition-all hover:bg-surface-container-high text-on-surface-variant">Fundamental Duties</button>
+<button class="whitespace-nowrap px-5 py-2 rounded-full border border-outline-variant font-button text-button transition-all hover:bg-surface-container-high text-on-surface-variant">Remedies</button>
+</div>
+</div>
+</section>
+<!-- Articles Grid -->
+<div class="px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Article Card 1 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART III</span>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 14</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Equality before law</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Fundamental Rights</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Article Card 2 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART III</span>
+<button class="text-secondary transition-colors">
+<span class="material-symbols-outlined fill-icon" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 19</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Protection of freedom of speech</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    All citizens shall have the right to freedom of speech and expression, to assemble peaceably and without arms, to form associations or unions.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Fundamental Rights</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Article Card 3 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART III</span>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 21</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Protection of life and liberty</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    No person shall be deprived of his life or personal liberty except according to procedure established by law.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Fundamental Rights</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Article Card 4 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART IV</span>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 44</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Uniform civil code</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    The State shall endeavour to secure for the citizens a uniform civil code throughout the territory of India.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Directive Principles</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Article Card 5 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART IVA</span>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 51A</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Fundamental duties</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    It shall be the duty of every citizen of India to abide by the Constitution and respect its ideals and institutions.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Fundamental Duties</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Article Card 6 -->
+<div class="glass-card rounded-2xl p-8 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/10 px-3 py-1 rounded border border-secondary/20">PART III</span>
+<button class="text-outline hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+<div class="mb-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Article 32</h3>
+<p class="font-label-sm text-label-sm text-on-tertiary-container mb-4 uppercase tracking-wide">Remedies for enforcement</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">
+                                    The right to move the Supreme Court by appropriate proceedings for the enforcement of the rights conferred by this Part is guaranteed.
+                                </p>
+<div class="flex items-center justify-between pt-6 border-t border-outline-variant/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant opacity-60">Remedies</span>
+<button class="flex items-center gap-2 text-primary font-button hover:gap-3 transition-all">
+                                        Learn More
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-4">
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-button">1</span>
+<span class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high cursor-pointer transition-colors">2</span>
+<span class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high cursor-pointer transition-colors">3</span>
+<span class="px-2">...</span>
+<span class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high cursor-pointer transition-colors">44</span>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest w-full py-16 border-t border-outline-variant mt-auto">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-4">
+<span class="text-headline-md font-headline-md text-primary">NyayaAI</span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                © 2024 NyayaAI. The Reliable Guardian of Legal Clarity. Empowering citizens through accessible legal knowledge.
+                            </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-button text-primary">Resources</h4>
+<ul class="space-y-2">
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-button text-primary">Support</h4>
+<ul class="space-y-2">
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookie Policy</a></li>
+<li class=""><a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Accessibility</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h4 class="font-button text-primary">Stay Informed</h4>
+<div class="flex gap-2">
+<input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-2 w-full outline-none focus:ring-2 focus:ring-secondary/50" placeholder="Email" type="email">
+<button class="bg-primary text-on-primary p-2 rounded-lg hover:opacity-80 transition-all">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Interactive Scripts -->
+<script>
+        // Tab Filtering Logic
+        const filterButtons = document.querySelectorAll('button.whitespace-nowrap');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active-filter'));
+                btn.classList.add('active-filter');
+            });
+        });
+
+        // Bookmark Toggle
+        const bookmarkIcons = document.querySelectorAll('.material-symbols-outlined');
+        bookmarkIcons.forEach(btn => {
+            if (btn.innerText === 'bookmark') {
+                btn.parentElement.addEventListener('click', (e) => {
+                    const icon = btn;
+                    const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                    icon.style.fontVariationSettings = isFilled ? "'FILL' 0" : "'FILL' 1";
+                    if(!isFilled) {
+                        icon.parentElement.classList.add('text-secondary');
+                        icon.parentElement.classList.remove('text-outline');
+                    } else {
+                        icon.parentElement.classList.remove('text-secondary');
+                        icon.parentElement.classList.add('text-outline');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

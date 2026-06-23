@@ -1,0 +1,480 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>NyayaAI | User Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="nyaya-shared.css" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .navy-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #0F172A 0%, #1D4ED8 100%);
+        }
+        .gold-glow:hover {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0F172A", // Deep Navy
+                        "secondary": "#F59E0B", // Gold
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "outline-variant": "#c6c6cd",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#F59E0B",
+                        "on-secondary-container": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "button": ["Inter"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "button": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-sm": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-primary font-body-md selection:bg-secondary/30 selection:text-primary" data-nyaya-app>
+<button class="nyaya-menu-button md:hidden" data-nyaya-menu-button aria-label="Open navigation menu" type="button"><span class="material-symbols-outlined">menu</span></button>
+<div class="nyaya-sidebar-backdrop" data-nyaya-backdrop="true"></div>
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col w-[280px] fixed h-full z-40 bg-primary text-white" data-nyaya-sidebar>
+<div class="px-6 h-[72px] flex items-center border-b border-white/10"><span class="text-headline-md font-headline-md font-semibold text-white tracking-tight">NyayaAI</span></div>
+<nav class="flex-1 px-4 py-6 space-y-1">
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-[#273449] text-white transition-all duration-200" data-nyaya-nav-link href="dashboard.html">
+<span class="material-symbols-outlined mr-3 text-secondary group-hover:text-secondary" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="ai-assistant.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-secondary" data-icon="smart_toy">smart_toy</span>
+                    AI Assistant
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="knowledge-hub.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-secondary" data-icon="library_books">library_books</span> 
+                    Knowledge Hub
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="constitutional-articles.html">
+<span class="material-symbols-outlined mr-3 mt-0.5 group-hover:text-secondary" data-icon="menu_book">menu_book</span>
+<span class="leading-tight">Constitutional Articles</span>
+</a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="acts-laws.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-secondary" data-icon="gavel">gavel</span> 
+                    Acts &amp; Laws
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="rights-hub.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-secondary" data-icon="verified_user">verified_user</span> 
+                    Rights Hub
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl bg-transparent text-white/70 hover:bg-[#1E293B] hover:text-white transition-all duration-200" data-nyaya-nav-link href="consultation-history.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-secondary" data-icon="history">history</span> 
+                    Consultation History
+                </a>
+</nav>
+<div class="px-4 py-6 border-t border-white/10">
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl hover:bg-white/5 transition-all duration-300 text-white/70 hover:text-white" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_circle">account_circle</span>
+                    Profile
+                </a>
+<a class="group flex items-center px-4 py-3 font-button text-button rounded-xl hover:bg-white/5 transition-all duration-300 text-white/70 hover:text-white" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+                    Sign Out
+                </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 md:ml-[280px] min-h-screen flex flex-col" data-nyaya-main>
+<!-- Top Header -->
+<header class="h-[72px] bg-surface-container-lowest sticky top-0 z-30 border-b border-outline-variant/30 flex items-center justify-between px-8">
+<div class="flex items-center gap-2 text-primary/50 text-label-sm">
+<span class="hover:text-primary cursor-pointer">Pages</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-semibold">Dashboard</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2.5 rounded-full hover:bg-surface-container transition-colors text-primary/70 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-secondary rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="font-button text-button text-primary">Adv. Elena Thorne</p>
+<p class="text-[12px] text-primary/60">Senior Legal Consultant</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full border border-outline-variant/50 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2psvOQvLHxlqYhvoNsbL8ZTyzV1wg2H-nNJIP54ArSZJx66Cbu3rwXGzveeWFi20nIhOMvquoE3EXn-QPjeOfQGf59PtoYlnxzQW8uM4etwe9FOkWDQTOHcX4Yp-KbhCnHC4OL2Ksc42AbwTQCJQQpYVOmcOe2Mpcw_ABHrSuSDdTKfkAebVfZbQfBVRvHmQAZHAIXyeyWUeDbX7J-1Vbjz9JptrWT9H0NE84y0YlSjUQSTJj2HDIOX4ZoDCO4czGKLSESA9tfMY">
+</div>
+</div>
+</header>
+<!-- Dashboard Content Area -->
+<div class="flex-1">
+<div class="max-w-[1280px] mx-auto px-8 py-8 space-y-12">
+<!-- 1. Welcome Section & Global Search -->
+<section class="text-center max-w-4xl mx-auto py-4">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight mb-3">Welcome back, Elena.</h1>
+<p class="text-body-lg text-primary/70 mb-10">Access legal information, understand your rights, and get AI-powered legal guidance.</p>
+<div class="relative group max-w-2xl mx-auto">
+<span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-primary/40 text-2xl" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-full py-5 pl-16 pr-6 shadow-xl focus:ring-4 focus:ring-secondary/10 focus:border-secondary text-body-lg transition-all outline-none" placeholder="Search Articles, Laws, Rights, Legal Issues..." type="text">
+<p class="mt-4 text-[13px] text-primary/50 text-left px-6">Search constitutional articles, legal acts, rights information, or describe a legal issue. <br class="md:hidden"> Example: <span class="text-primary/70 font-medium">Article 21, Consumer Protection Act, Salary Not Paid</span></p>
+</div>
+</section>
+<!-- 2. Statistics Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="glass-card p-6 border border-outline-variant/20 shadow-sm hover:shadow-md transition-all group overflow-hidden relative rounded-xl">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<div class="p-3 rounded-xl navy-gradient text-on-primary">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+</div>
+<span class="text-label-sm text-secondary font-bold">480+</span>
+</div>
+<p class="text-primary/60 font-medium mb-1">Total Articles</p>
+<h3 class="text-headline-md font-headline-md text-primary">Constitutional Articles</h3>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 shadow-sm hover:shadow-md transition-all group overflow-hidden relative rounded-xl">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<div class="p-3 rounded-xl bg-secondary text-on-primary">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+</div>
+<span class="text-label-sm text-secondary font-bold">120+</span>
+</div>
+<p class="text-primary/60 font-medium mb-1">Total Acts</p>
+<h3 class="text-headline-md font-headline-md text-primary">Legal Acts &amp; Laws</h3>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 shadow-sm hover:shadow-md transition-all group overflow-hidden relative rounded-xl">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<div class="p-3 rounded-xl navy-gradient text-on-primary">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<span class="text-label-sm text-secondary font-bold">15</span>
+</div>
+<p class="text-primary/60 font-medium mb-1">Rights Categories</p>
+<h3 class="text-headline-md font-headline-md text-primary">Your Protections</h3>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 shadow-sm hover:shadow-md transition-all group overflow-hidden relative rounded-xl">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex items-center justify-between mb-4 relative z-10">
+<div class="p-3 rounded-xl bg-secondary text-on-primary">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+</div>
+<span class="text-label-sm text-secondary font-bold">5</span>
+</div>
+<p class="text-primary/60 font-medium mb-1">Recent Consultations</p>
+<h3 class="text-headline-md font-headline-md text-primary">Recent Consultations</h3>
+</div>
+</div>
+<!-- 3. Featured AI Consultation Card -->
+<section>
+<div class="premium-gradient rounded-[2rem] p-8 md:p-12 text-on-primary relative overflow-hidden shadow-2xl group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-secondary/20 rounded-full blur-3xl -ml-24 -mb-24"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="max-w-2xl">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-label-sm uppercase tracking-widest text-secondary font-bold">AI Powered Insights</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-display-lg mb-4">Start New Legal Consultation</h2>
+<p class="text-lg opacity-90 mb-8 leading-relaxed">Describe your legal situation to get immediate insights, relevant laws, and potential next steps from our legal AI.</p>
+<a class="inline-flex items-center gap-2 bg-secondary text-on-primary px-8 py-4 rounded-xl font-button text-button hover:scale-105 transition-transform shadow-lg hover:shadow-secondary/40" href="ai-assistant.html">
+                                        Start Consultation
+                                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="hidden lg:block">
+<div class="w-48 h-48 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+<span class="material-symbols-outlined text-7xl text-secondary animate-pulse" data-icon="smart_toy">smart_toy</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Quick Actions -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Explore Platform</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-gutter">
+<a class="flex flex-col items-center gap-4 p-6 glass-card border border-outline-variant/20 hover:border-secondary/50 hover:bg-surface-container transition-all group gold-glow rounded-xl" href="constitutional-articles.html">
+<div class="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-on-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="search_insights">search_insights</span>
+</div>
+<p class="font-button text-button text-primary">Search Articles</p>
+</a>
+<a class="flex flex-col items-center gap-4 p-6 glass-card border border-outline-variant/20 hover:border-secondary/50 hover:bg-surface-container transition-all group gold-glow rounded-xl" href="acts-laws.html">
+<div class="w-14 h-14 rounded-full navy-gradient flex items-center justify-center text-on-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book">menu_book</span>
+</div>
+<p class="font-button text-button text-primary">Search Laws</p>
+</a>
+<a class="flex flex-col items-center gap-4 p-6 glass-card border border-outline-variant/20 hover:border-secondary/50 hover:bg-surface-container transition-all group gold-glow rounded-xl" href="rights-hub.html">
+<div class="w-14 h-14 rounded-full bg-secondary flex items-center justify-center text-on-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="shield">shield</span>
+</div>
+<p class="font-button text-button text-primary">Know Your Rights</p>
+</a>
+</div>
+</section>
+<!-- 5. Popular Legal Issues & Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Popular Legal Issues -->
+<div class="lg:col-span-2 glass-card border border-outline-variant/20 shadow-sm p-8 rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Popular Legal Issues</h2>
+<span class="material-symbols-outlined text-primary/30" data-icon="trending_up">trending_up</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="home_work">home_work</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Property Dispute</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Consumer Complaint</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="payments">payments</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Salary Not Paid</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="lock_reset">lock_reset</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Cyber Fraud</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="house">house</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Tenant Issues</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<button class="group p-5 rounded-xl border border-outline-variant/20 bg-surface-container-lowest hover:bg-primary transition-all duration-300 text-left hover:shadow-lg">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-white/10">
+<span class="material-symbols-outlined text-primary group-hover:text-secondary" data-icon="family_restroom">family_restroom</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-semibold text-primary group-hover:text-white">Family Dispute</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:text-secondary opacity-0 group-hover:opacity-100 transition-all" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Recent Consultations -->
+<div class="glass-card border border-outline-variant/20 shadow-sm p-8 flex flex-col rounded-xl">
+<h2 class="font-headline-md text-headline-md text-primary mb-8">Recent Activity</h2>
+<div class="space-y-6">
+<a class="flex gap-4 group cursor-pointer hover:no-underline" href="consultation-history.html">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary/60 group-hover:bg-secondary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Property Dispute</p>
+<p class="text-label-sm text-primary/50">2 Hours Ago</p>
+</div>
+</a>
+<a class="flex gap-4 group cursor-pointer hover:no-underline" href="consultation-history.html">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary/60 group-hover:bg-secondary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Consumer Complaint</p>
+<p class="text-label-sm text-primary/50">Yesterday</p>
+</div>
+</a>
+<a class="flex gap-4 group cursor-pointer hover:no-underline" href="consultation-history.html">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary/60 group-hover:bg-secondary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-body-md font-semibold text-primary group-hover:text-secondary transition-colors">Employment Issue</p>
+<p class="text-label-sm text-primary/50">3 Days Ago</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<!-- 6. Trending Legal Topics -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Trending Legal Topics</h2>
+<p class="text-body-md text-primary/60 mb-8">Explore the most searched laws, constitutional articles, rights, and legal topics by users.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="policy">policy</span>
+<h4 class="font-semibold text-primary mb-2">Consumer Protection Act</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Rights of consumers and mechanisms for dispute resolution.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="phishing">phishing</span>
+<h4 class="font-semibold text-primary mb-2">Cyber Fraud Cases</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Legal recourse for online scams, identity theft, and financial fraud.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="female">female</span>
+<h4 class="font-semibold text-primary mb-2">Women's Rights</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Legal safeguards for safety, equality, and workplace rights.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="location_city">location_city</span>
+<h4 class="font-semibold text-primary mb-2">Property Disputes</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Laws governing land ownership, inheritance, and real estate.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="work">work</span>
+<h4 class="font-semibold text-primary mb-2">Employment Laws</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Regulations on wages, working hours, and termination.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="meeting_room">meeting_room</span>
+<h4 class="font-semibold text-primary mb-2">Tenant Rights</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Protections for renters against illegal eviction and harassment.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="campaign">campaign</span>
+<h4 class="font-semibold text-primary mb-2">Domestic Violence</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Legal protection and support services for victims of domestic abuse.</p>
+</div>
+<div class="glass-card p-6 border border-outline-variant/20 hover:border-secondary/30 transition-all hover:shadow-md group cursor-pointer rounded-xl">
+<span class="material-symbols-outlined text-secondary mb-3" data-icon="info">info</span>
+<h4 class="font-semibold text-primary mb-2">Right to Information</h4>
+<p class="text-[13px] text-primary/60 line-clamp-2">Empowering citizens to request information from public authorities.</p>
+</div>
+</div>
+</section>
+<!-- 7. Know Your Rights Spotlight -->
+<section class="pb-8">
+<div class="glass-card border border-outline-variant/20 p-8 flex flex-col md:flex-row items-center gap-8 hover:shadow-lg transition-all border-l-4 border-l-secondary rounded-xl">
+<div class="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="lightbulb">lightbulb</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-headline-md text-primary">Know Your Rights</h3>
+<a class="text-button text-secondary hover:underline flex items-center gap-1" href="rights-hub.html">View All Rights <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+</div>
+<p class="text-body-lg text-primary/80 mb-4">
+<span class="font-bold text-secondary italic">Did you know?</span> Employees have the right to receive wages on time according to labour regulations.
+                                </p>
+<a class="text-button text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all" href="rights-hub.html">
+                                    Read More <span class="material-symbols-outlined text-[20px]" data-icon="arrow_right_alt">arrow_right_alt</span>
+</a>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-primary/40" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-primary/40" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</section>
+<!-- Footer Placement (Unified inside Main Content) -->
+<footer class="border-t border-outline-variant/30 pt-10 pb-16">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md text-primary tracking-tighter">NyayaAI</span>
+<span class="text-[12px] text-primary/50 ml-2">© 2024 The Reliable Guardian of Legal Clarity.</span>
+</div>
+<div class="flex gap-8">
+<a class="text-label-sm text-primary/50 hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-primary/50 hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm text-primary/50 hover:text-secondary transition-colors" href="#">Accessibility</a>
+<a class="text-label-sm text-primary/50 hover:text-secondary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile FAB -->
+<a class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-95 transition-transform md:hidden z-50" href="ai-assistant.html">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</a>
+<script>
+        // Search bar focus effects
+        const searchInput = document.querySelector('input[type="text"]');
+        if(searchInput) {
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.classList.add('ring-offset-2');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.classList.remove('ring-offset-2');
+            });
+        }
+
+        // Card Hover Scale logic remains for interactivity
+        document.querySelectorAll('.glass-card, button, a.glass-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if((el.tagName === 'BUTTON' || el.tagName === 'A') && !el.classList.contains('bg-secondary') && !el.classList.contains('premium-gradient')) el.style.transform = 'translateY(-2px)';
+            });
+            el.addEventListener('mouseleave', () => {
+                if((el.tagName === 'BUTTON' || el.tagName === 'A') && !el.classList.contains('bg-secondary') && !el.classList.contains('premium-gradient')) el.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+<script src="nyaya-shared.js"></script>
+</body></html>

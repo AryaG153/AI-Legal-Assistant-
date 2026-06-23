@@ -1,0 +1,443 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>NyayaAI | Modern Legal Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="nyaya-shared.css" rel="stylesheet">
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .sidebar-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#855300",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "primary-fixed": "#dae2fd",
+                    "background": "#f7f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "on-error-container": "#93000a",
+                    "primary-container": "#131b2e",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d8dadc",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "on-surface-variant": "#45464d",
+                    "on-primary-fixed": "#131b2e",
+                    "primary": "#000000",
+                    "surface": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#565e74",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary": "#000000",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-primary": "#bec6e0",
+                    "on-secondary-container": "#684000",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "outline": "#76777d",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#d3e4fe",
+                    "on-tertiary-container": "#75859d",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-container": "#0b1c30",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-background": "#191c1e",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "inverse-surface": "#2d3133",
+                    "on-surface": "#191c1e",
+                    "secondary-container": "#fea619",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#2a1700",
+                    "secondary-fixed": "#ffddb8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "button": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "button": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "label-sm": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-hidden h-screen" data-nyaya-app>
+<div class="nyaya-sidebar-backdrop" data-nyaya-backdrop="true"></div>
+<div class="flex h-full">
+<!-- Sidebar Navigation - Standardized to 280px -->
+<aside class="hidden md:flex flex-col w-[280px] bg-primary-container border-r border-outline-variant/20 h-full z-40 py-base shrink-0" data-nyaya-sidebar>
+<div class="px-6 py-6 mb-6">
+<div class="flex items-center gap-3">
+<span class="text-white text-headline-md font-bold tracking-tight">NyayaAI</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto chat-scroll">
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="dashboard.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Dashboard</span>
+</a>
+<!-- Active Navigation Item -->
+<a class="flex items-center px-4 py-3 font-semibold bg-[#1E293B] rounded-xl cursor-pointer active:scale-95 text-white transition-all duration-200 group" href="ai-assistant.html">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1; color: #F59E0B;">smart_toy</span>
+<span class="font-body-md text-body-md font-medium">AI Assistant</span>
+</a>
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="knowledge-hub.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">description</span>
+<span class="font-body-md text-body-md font-medium">Knowledge Hub</span>
+</a>
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="constitutional-articles.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">menu_book</span>
+<span class="font-body-md text-body-md font-medium">Constitutional Articles</span>
+</a>
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="acts-laws.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">gavel</span>
+<span class="font-body-md text-body-md font-medium">Acts &amp; Laws</span>
+</a>
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="rights-hub.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">verified_user</span>
+<span class="font-body-md text-body-md font-medium">Rights Hub</span>
+</a>
+<a class="flex items-center px-4 py-3 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors duration-200 cursor-pointer active:scale-95 text-white/80 group" href="consultation-history.html">
+<span class="material-symbols-outlined mr-3 group-hover:text-[#F59E0B]">history</span>
+<span class="font-body-md text-body-md font-medium">Consultation History</span>
+</a>
+</nav>
+<div class="px-4 py-4 border-t border-outline-variant/10 shrink-0">
+<div class="space-y-1">
+<a class="flex items-center px-4 py-2 hover:bg-[#1E293B] hover:text-white rounded-xl transition-all duration-200 text-white/80 group text-body-md font-medium" href="profile.html">
+<span class="material-symbols-outlined mr-3 text-lg group-hover:text-[#F59E0B]">account_circle</span>
+                    Profile
+                </a>
+<a class="flex items-center px-4 py-2 hover:bg-[#1E293B] hover:text-white rounded-xl transition-all duration-200 text-white/80 group text-body-md font-medium" href="settings.html">
+<span class="material-symbols-outlined mr-3 text-lg group-hover:text-[#F59E0B]">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center px-4 py-2 hover:bg-[#1E293B] hover:text-white rounded-xl transition-all duration-200 text-white/80 group text-body-md font-medium" href="logout.html">
+<span class="material-symbols-outlined mr-3 text-lg group-hover:text-[#F59E0B]">logout</span>
+                    Sign Out
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-h-screen overflow-hidden bg-background" data-nyaya-main>
+<!-- Top Header - Consistent Nav -->
+<header class="h-16 bg-surface-container-lowest shrink-0 z-30 border-b border-outline-variant/30 flex items-center justify-between px-margin-desktop shadow-sm">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 -ml-2 rounded-lg hover:bg-surface-container transition-colors" data-nyaya-menu-button>
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">folder_open</span>
+<span class="text-sm font-medium">Consultations</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-sm font-semibold text-primary">Active Case Assistant</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center gap-2 mr-4">
+<div class="w-2 h-2 bg-green-500 rounded-full"></div>
+<span class="text-label-sm text-on-surface-variant">Cloud Sync Active</span>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant relative">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/30 mx-1"></div>
+<div class="flex items-center gap-3 pl-2 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="font-button text-sm text-primary">Adv. Elena Thorne</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Pro Tier</p>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2psvOQvLHxlqYhvoNsbL8ZTyzV1wg2H-nNJIP54ArSZJx66Cbu3rwXGzveeWFi20nIhOMvquoE3EXn-QPjeOfQGf59PtoYlnxzQW8uM4etwe9FOkWDQTOHcX4Yp-KbhCnHC4OL2Ksc42AbwTQCJQQpYVOmcOe2Mpcw_ABHrSuSDdTKfkAebVfZbQfBVRvHmQAZHAIXyeyWUeDbX7J-1Vbjz9JptrWT9H0NE84y0YlSjUQSTJj2HDIOX4ZoDCO4czGKLSESA9tfMY">
+</div>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden">
+<!-- Secondary Sidebar (Preserved History Panel) -->
+<aside class="hidden xl:flex flex-col w-72 h-full bg-surface-container-low border-r border-outline-variant/30 px-6 py-8 sidebar-transition overflow-y-auto chat-scroll shrink-0">
+<div class="mb-10">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-4 rounded-xl font-button text-button hover:shadow-lg transition-all mb-6">
+<span class="material-symbols-outlined">add</span>
+                        New Consultation
+                    </button>
+<div class="space-y-8">
+<!-- Section: Previous Consultations -->
+<div>
+<h3 class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Previous Consultations</h3>
+<div class="space-y-2">
+<button class="w-full flex items-center gap-3 p-3 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors text-left group">
+<script src="nyaya-shared.js"></script>
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+<span class="truncate text-body-md">Rental Dispute - Mar 12</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors text-left">
+<span class="material-symbols-outlined">description</span>
+<span class="truncate text-body-md">Employment Contract Review</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container text-on-surface-variant transition-colors text-left">
+<span class="material-symbols-outlined">description</span>
+<span class="truncate text-body-md">Consumer Protection Claim</span>
+</button>
+</div>
+</div>
+<!-- Section: Saved Rights -->
+<div>
+<h3 class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Saved Rights</h3>
+<div class="space-y-2">
+<div class="p-3 rounded-lg border border-outline-variant/40 bg-white/50">
+<p class="text-body-md font-semibold text-primary">Article 21</p>
+<p class="text-label-sm text-on-surface-variant">Right to Life &amp; Liberty</p>
+</div>
+<div class="p-3 rounded-lg border border-outline-variant/40 bg-white/50">
+<p class="text-body-md font-semibold text-primary">Consumer Act Sec. 12</p>
+<p class="text-label-sm text-on-surface-variant">Unfair Trade Practices</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Chat Content Area (Centered Content Container) -->
+<section class="flex-1 flex flex-col relative bg-surface-bright overflow-hidden">
+<!-- Background Decorative Elements -->
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[40%] h-[60%] bg-secondary/5 rounded-full blur-[120px]"></div>
+</div>
+<!-- Chat Header -->
+<div class="relative z-10 flex items-center justify-between px-8 py-4 border-b border-outline-variant/20 glass-panel">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md">Legal Assistant</h2>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="text-label-sm text-on-surface-variant">Systems Operational</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">print</span>
+</button>
+</div>
+</div>
+<!-- Chat Messages (Centered max-w) -->
+<div class="flex-1 overflow-y-auto chat-scroll p-8 relative z-10">
+<div class="max-w-[800px] mx-auto space-y-12">
+<!-- User Message -->
+<div class="flex justify-end animate-fade-in" style="animation-delay: 0.1s">
+<div class="max-w-[85%] bg-primary-container text-on-primary-container p-6 rounded-2xl shadow-sm">
+<p class="text-body-lg font-body-lg">
+                                    My landlord is refusing to return my security deposit after my lease ended last week. He claims he needs it for "repainting," but there's only normal wear and tear. I have the move-out inspection photos. What can I do?
+                                </p>
+</div>
+</div>
+<!-- AI Response (Preserved Interface) -->
+<div class="flex justify-start animate-fade-in" style="animation-delay: 0.3s">
+<div class="max-w-[95%] glass-panel p-8 rounded-3xl shadow-xl border border-outline-variant/30">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-[18px]">verified_user</span>
+</div>
+<div>
+<h4 class="font-bold text-headline-md mb-2">Legal Analysis: Rental Security Dispute</h4>
+<p class="text-on-surface-variant text-body-md leading-relaxed">
+                                            Based on your description, this appears to be an unauthorized deduction from your security deposit. Most jurisdictions differentiate between <strong>damage</strong> and <strong>normal wear and tear</strong>.
+                                        </p>
+</div>
+</div>
+<!-- Insights -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="bg-surface-container-low p-5 rounded-2xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-3">gavel</span>
+<h5 class="font-bold text-body-md mb-2">Legal Foundation</h5>
+<p class="text-label-sm text-on-surface-variant leading-relaxed">
+                                            Model Tenancy Act, Section 11: Mandates the return of security deposit within 1 month, excluding reasonable deductions for damages.
+                                        </p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-2xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary mb-3">task_alt</span>
+<h5 class="font-bold text-body-md mb-2">Key Evidence</h5>
+<p class="text-label-sm text-on-surface-variant leading-relaxed">
+                                            Your move-out inspection photos are critical. They serve as primary evidence against claims of physical damage.
+                                        </p>
+</div>
+</div>
+<!-- Citations -->
+<div class="mb-8 p-4 bg-primary-container rounded-xl border-l-4 border-secondary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-sm">history_edu</span>
+<span class="text-label-sm font-label-sm text-on-primary-container uppercase tracking-widest">Citing Sources</span>
+</div>
+<code class="text-label-sm text-on-primary-container font-medium block">
+                                        STATUTE: Rent Control Act (State Variant) // Article 21 (Constitutional Remedy for arbitrary deprivation of property)
+                                    </code>
+</div>
+<!-- Next Steps -->
+<div class="space-y-4">
+<h5 class="font-bold text-body-md">Recommended Action Plan:</h5>
+<div class="space-y-3">
+<div class="flex gap-4 p-4 rounded-xl hover:bg-surface-container-high transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 font-bold text-label-sm">1</div>
+<p class="text-body-md">Draft a <strong>Formal Demand Letter</strong> citing the move-out inspection and the Model Tenancy Act.</p>
+</div>
+<div class="flex gap-4 p-4 rounded-xl hover:bg-surface-container-high transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0 font-bold text-label-sm">2</div>
+<p class="text-body-md">Initiate a dispute resolution via the <strong>Rent Authority</strong> if no response is received in 7 days.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-outline text-button font-button hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                        Draft Letter
+                                    </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-button font-button hover:opacity-90 transition-all shadow-md">
+                                        Find Legal Counsel
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-32"></div>
+</div>
+<!-- Input Bar (Centered within container) -->
+<div class="relative z-20 px-8 py-6 glass-panel border-t border-outline-variant/20 shrink-0">
+<div class="max-w-[800px] mx-auto relative">
+<textarea class="w-full pl-6 pr-14 py-4 rounded-2xl bg-white border border-outline-variant focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all resize-none font-body-md shadow-sm" placeholder="Ask follow-up questions or describe another case..." rows="1"></textarea>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="p-2 rounded-lg bg-primary text-on-primary hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Unified Footer -->
+<footer class="relative z-20 px-8 py-3 bg-surface-container-low border-t border-outline-variant/20 shrink-0">
+<div class="max-w-[800px] mx-auto flex items-center justify-between">
+<p class="text-[11px] text-on-surface-variant">NyayaAI can make mistakes. Check important info.</p>
+<div class="flex gap-4">
+<span class="text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                                Pro Mode Active
+                            </span>
+<span class="text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">encrypted</span>
+                                Secure End-to-End
+                            </span>
+</div>
+</div>
+</footer>
+</section>
+</main>
+</div>
+</div>
+<script>
+    // Micro-interactions for the input bar
+    const textarea = document.querySelector('textarea');
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+        if(parseInt(this.style.height) > 200) {
+            this.style.overflowY = 'scroll';
+            this.style.height = '200px';
+        } else {
+            this.style.overflowY = 'hidden';
+        }
+    });
+
+    // Simple animation trigger for messages on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const scrollContainer = document.querySelector('.chat-scroll');
+        if(scrollContainer) {
+            scrollContainer.scrollTo({
+                top: scrollContainer.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    });
+</script>
+</body></html>
