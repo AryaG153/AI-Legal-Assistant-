@@ -1,10 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from retriever import retrieve
 from groq import Groq
 from pymongo import MongoClient
 from datetime import datetime
+from pathlib import Path
 import os
 
 app = FastAPI()
@@ -15,6 +17,21 @@ groq_client = Groq(api_key="gsk_uVaaHZj46Q630hKQCP4KWGdyb3FYrKzTJLL0c5UyUXMLAR1l
 mongo = MongoClient("mongodb+srv://ailegalassistant0_db_user:<summerproject2026>@cluster0.1ezfrwn.mongodb.net/?appName=Cluster0", tlsAllowInvalidCertificates=True)
 db = mongo["legal_assistant"]
 collection = db["queries"]
+
+ROOT_DIR = Path(__file__).resolve().parent
+
+@app.get("/", response_class=FileResponse)
+def read_root():
+    return FileResponse(ROOT_DIR / "dashboard.html")
+
+@app.get("/{file_path:path}", response_class=FileResponse)
+def serve_file(file_path: str):
+    safe_path = (ROOT_DIR / file_path).resolve()
+    if not str(safe_path).startswith(str(ROOT_DIR)):
+        raise HTTPException(status_code=404, detail="Not Found")
+    if safe_path.is_file():
+        return FileResponse(safe_path)
+    raise HTTPException(status_code=404, detail="Not Found")
 
 class Query(BaseModel):
     question: str
