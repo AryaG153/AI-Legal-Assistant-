@@ -109,3 +109,23 @@ DISCLAIMER: This is general legal information, not professional legal advice. Al
         "confidence": "high" if metas else "low",
         "disclaimer": "This is general information, not legal advice. Consult a lawyer for your specific situation."
     }
+@app.get("/knowledge-search")
+def knowledge_search(q: str):
+    query = q.strip()
+    if not query:
+        return {"results": []}
+
+    results = retrieve(query, top_k=10, similarity_threshold=50.0, collection_name="knowledge_hub")
+    docs = results.get("documents", [[]])[0] if results.get("documents") else []
+    metas = results.get("metadatas", [[]])[0] if results.get("metadatas") else []
+
+    hits = []
+    for meta, doc in zip(metas, docs):
+        hits.append({
+            "id": meta.get("id"),
+            "title": meta.get("title"),
+            "category": meta.get("category"),
+            "text": doc
+        })
+
+    return {"results": hits}

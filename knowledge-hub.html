@@ -102,6 +102,13 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(226, 232, 240, 0.5);
         }
+        .search-highlight {
+            background: #fff59d;
+            color: #1f2937;
+            font-weight: 600;
+            padding: 0 0.1rem;
+            border-radius: 0.15rem;
+        }
         .search-container:focus-within {
             box-shadow: 0 0 0 2px #855300;
         }
@@ -124,7 +131,7 @@
 <body class="bg-background text-on-background font-body-md selection:bg-secondary-container/30">
 <div class="flex min-h-screen">
 <!-- Sidebar Navigation (Standardized 280px) -->
-<aside class="fixed left-0 top-0 h-full w-[280px] bg-primary-container border-r border-outline-variant/20 shadow-sm flex flex-col z-50">
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-primary-container border-r border-outline-variant/20 shadow-sm flex flex-col z-50" data-nyaya-sidebar>
 <div class="h-20 flex items-center px-8">
 <div class="flex items-center h-10"><span class="font-headline-md text-headline-md font-bold text-white tracking-tighter">NyayaAI</span></div>
 </div>
@@ -197,11 +204,16 @@
 <div class="pl-4 text-outline">
 <span class="material-symbols-outlined">search</span>
 </div>
-<input class="w-full bg-transparent border-none focus:ring-0 text-body-lg font-body-md placeholder:text-outline-variant py-3" placeholder="Search Articles, Acts, Rights..." type="text">
-<button class="bg-secondary text-on-secondary px-8 py-3 rounded-xl font-button hover:opacity-90 transition-all flex items-center gap-2 whitespace-nowrap">
+<input id="hubSearchInput" class="w-full bg-transparent border-none focus:ring-0 text-body-lg font-body-md placeholder:text-outline-variant py-3" placeholder="Search Articles, Acts, Rights..." type="text">
+<button id="hubClearButton" class="bg-surface text-primary border border-outline-variant px-6 py-3 rounded-xl font-button hover:bg-surface-container transition-all flex items-center gap-2 whitespace-nowrap" type="button">
+                                Clear
+                            </button>
+<button id="hubSearchButton" class="bg-secondary text-on-secondary px-8 py-3 rounded-xl font-button hover:opacity-90 transition-all flex items-center gap-2 whitespace-nowrap" type="button">
                                 Search
                             </button>
 </div>
+<div id="knowledgeHubSearchResults" class="max-w-3xl mx-auto mt-4 text-left text-sm text-primary/70 hidden" aria-live="polite"></div>
+<div id="knowledgeHubResultList" class="max-w-3xl mx-auto mt-6 space-y-4"></div>
 </section>
 <!-- Navigation Tabs -->
 <div class="flex justify-center mb-12">
@@ -214,7 +226,7 @@
 <!-- Bento Grid Categories (Preserved Exactly) -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
 <!-- Criminal Law Card (Featured) -->
-<div class="md:col-span-8 group relative overflow-hidden rounded-3xl bg-primary-container p-8 text-on-primary min-h-[400px] flex flex-col justify-end transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
+<div class="md:col-span-8 group relative overflow-hidden rounded-3xl bg-primary-container p-8 text-on-primary min-h-[400px] flex flex-col justify-end transition-all duration-500 hover:shadow-2xl hover:-translate-y-1" data-searchable-card data-category="Criminal Law">
 <div class="absolute top-0 left-0 w-full h-full opacity-40 mix-blend-overlay">
 <div class="w-full h-full bg-cover bg-center" data-alt="A cinematic, high-contrast black and white photograph of a stately courtroom interior with heavy wooden benches and classical architectural details. The lighting is dramatic, casting deep shadows that emphasize authority and justice. The overall aesthetic is professional and corporate, aligning with a legal knowledge platform." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDk1c3gsoQEBlK0dsm1kv4TyjKkpOZJI-HICI2DfuZlUF_gm-T5rEiOaEBgW4_MIEHWejFZ1BGHAlnUK2oJaCwoCEuiWyhdwwBEiJq43jm-IIyhkMfjgYCUT14WJ_JIR9qb4Me1aH-2_ObpclZb3dRenhgGlpRutY1kd59lBp0QwrCSKbDLkA-GuzcPi_B5FBTbgSVx7bZtpE8jDVfObchPMkhqR6Vr-5s0a97ml-Q7u0ccis9W2OuShMf2kdsXYh3qIg3ZBA3xzq0')"></div>
 </div>
@@ -225,8 +237,8 @@
 </div>
 <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed">Primary Category</span>
 </div>
-<h3 class="font-display-lg text-display-lg-mobile mb-4">Criminal Law</h3>
-<p class="text-primary-fixed/80 max-w-xl mb-8 font-body-md text-body-md">Navigate the complexities of criminal justice, from basic FIR procedures to detailed analyses of the penal code and protection against harassment.</p>
+<h3 class="font-display-lg text-display-lg-mobile mb-4" data-search-title>Criminal Law</h3>
+<p class="text-primary-fixed/80 max-w-xl mb-8 font-body-md text-body-md" data-search-description>Navigate the complexities of criminal justice, from basic FIR procedures to detailed analyses of the penal code and protection against harassment.</p>
 <a class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary-container text-white px-6 py-3 rounded-full font-button transition-all group/btn" href="acts-laws.html">
                                     Explore Modules
                                     <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
@@ -234,13 +246,13 @@
 </div>
 </div>
 <!-- Family Law Card -->
-<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface">
+<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface" data-searchable-card data-category="Family Law">
 <div class="mb-auto">
 <div class="w-14 h-14 rounded-2xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mb-6 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-3xl">family_restroom</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-3">Family Law</h3>
-<p class="text-on-surface-variant font-body-md text-body-md mb-6">Expert guidance on marriage, divorce, succession, and custody laws within the domestic framework.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-3" data-search-title>Family Law</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6" data-search-description>Expert guidance on marriage, divorce, succession, and custody laws within the domestic framework.</p>
 </div>
 <div class="pt-6 border-t border-outline-variant/20 flex justify-between items-center">
 <span class="text-label-sm font-label-sm text-outline">124 Articles</span>
@@ -250,13 +262,13 @@
 </div>
 </div>
 <!-- Civil Law Card -->
-<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface">
+<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface" data-searchable-card data-category="Civil Law">
 <div class="mb-auto">
 <div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-6 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-3xl">balance</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-3">Civil Law</h3>
-<p class="text-on-surface-variant font-body-md text-body-md mb-6">Contractual obligations, property disputes, and torts explained through simplified legal precedent.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-3" data-search-title>Civil Law</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6" data-search-description>Contractual obligations, property disputes, and torts explained through simplified legal precedent.</p>
 </div>
 <div class="pt-6 border-t border-outline-variant/20 flex justify-between items-center">
 <span class="text-label-sm font-label-sm text-outline">89 Articles</span>
@@ -266,13 +278,13 @@
 </div>
 </div>
 <!-- Corporate Law Card -->
-<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface">
+<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface" data-searchable-card data-category="Corporate Law">
 <div class="mb-auto">
 <div class="w-14 h-14 rounded-2xl bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-6 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-3xl">business_center</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-3">Corporate Law</h3>
-<p class="text-on-surface-variant font-body-md text-body-md mb-6">Understanding business registrations, compliance, intellectual property, and labor regulations.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-3" data-search-title>Corporate Law</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6" data-search-description>Understanding business registrations, compliance, intellectual property, and labor regulations.</p>
 </div>
 <div class="pt-6 border-t border-outline-variant/20 flex justify-between items-center">
 <span class="text-label-sm font-label-sm text-outline">56 Articles</span>
@@ -282,13 +294,13 @@
 </div>
 </div>
 <!-- Human Rights Card -->
-<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface">
+<div class="md:col-span-4 group bg-surface-container-low border border-outline-variant/30 p-8 rounded-3xl flex flex-col transition-all duration-500 hover:shadow-xl hover:bg-surface" data-searchable-card data-category="Human Rights">
 <div class="mb-auto">
 <div class="w-14 h-14 rounded-2xl bg-tertiary-fixed-dim flex items-center justify-center text-on-tertiary-fixed-variant mb-6 group-hover:scale-110 transition-transform">
 <span class="material-symbols-outlined text-3xl">volunteer_activism</span>
 </div>
-<h3 class="font-headline-md text-headline-md text-primary mb-3">Human Rights</h3>
-<p class="text-on-surface-variant font-body-md text-body-md mb-6">Essential fundamental rights guaranteed by the constitution and international charters.</p>
+<h3 class="font-headline-md text-headline-md text-primary mb-3" data-search-title>Human Rights</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-6" data-search-description>Essential fundamental rights guaranteed by the constitution and international charters.</p>
 </div>
 <div class="pt-6 border-t border-outline-variant/20 flex justify-between items-center">
 <span class="text-label-sm font-label-sm text-outline">210 Articles</span>
@@ -309,31 +321,31 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
 <!-- Article Card 1 -->
-<a class="group cursor-pointer block" href="constitutional-articles.html">
+<a class="group cursor-pointer block" href="constitutional-articles.html" data-searchable-card data-category="Constitutional Law">
 <div class="aspect-video rounded-2xl overflow-hidden mb-6">
 <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A clean, minimalist high-tech legal library..." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBO4IZgxdaEayC3IOjhnA0YMWulkIyj8Gi0SzCMTvPPRUBKZQ0j34vxkETpoStUtxfF45MG-dgbNeZgLnuxJDzs_OB1BRq6n0e5BPAaUHD_SwMH2zVWKkaRmJqT0e5ys7Nv8cZE2mBM1nTTfW8v5mu4X4IH68JQjX9izDKhb0CD4TLUEJLgNS9S3DUsFpozAKFwVcBYvNXWLzbhBpJGLASSbRBJob1p3btdyuebUP5cEARbZozwvEWw0d5xkX1ovy3K9qwjogbxALQ')"></div>
 </div>
 <span class="font-label-sm text-label-sm text-secondary mb-3 inline-block uppercase">Constitutional Law</span>
-<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4">Understanding the Right to Privacy in the Digital Age</h4>
-<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2">How recent amendments have reshaped the landscape of digital data protection and individual liberty...</p>
+<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4" data-search-title>Understanding the Right to Privacy in the Digital Age</h4>
+<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2" data-search-description>How recent amendments have reshaped the landscape of digital data protection and individual liberty...</p>
 </a>
 <!-- Article Card 2 -->
-<a class="group cursor-pointer block" href="acts-laws.html">
+<a class="group cursor-pointer block" href="acts-laws.html" data-searchable-card data-category="Civil Procedure">
 <div class="aspect-video rounded-2xl overflow-hidden mb-6">
 <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="A close-up of a modern, ergonomic workspace..." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxZe0sjfydsu7Z4RPHVqGeTK_hhX6wrLc9kMUDsdFyUxT1ubXCWAEPzfEiPOeQW109kgClmuUozkf_b_Sx21Tne0dSF5dh7n3gKFC6BvBjMEKEA4OiDRzSsZU-Sp8LSE0d_Pi79wSSTCYX3icPqz1shdNEzQh5XU0VES5__7qMwqjmN0nno3aikGbVqqGKFqPKkePwR2l2DkpSBJcJxQPZH44p9omdESQCgfCIgBbqNJrJskkTVo81BkniUVkRwO5ghQ8ijqx0rVs')"></div>
 </div>
 <span class="font-label-sm text-label-sm text-secondary mb-3 inline-block uppercase">Civil Procedure</span>
-<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4">A Step-by-Step Guide to Filing a Small Claims Suit</h4>
-<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2">Empowering citizens to resolve minor disputes without the immediate need for expensive litigation...</p>
+<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4" data-search-title>A Step-by-Step Guide to Filing a Small Claims Suit</h4>
+<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2" data-search-description>Empowering citizens to resolve minor disputes without the immediate need for expensive litigation...</p>
 </a>
 <!-- Article Card 3 -->
-<a class="group cursor-pointer block" href="acts-laws.html">
+<a class="group cursor-pointer block" href="acts-laws.html" data-searchable-card data-category="Emerging Tech">
 <div class="aspect-video rounded-2xl overflow-hidden mb-6">
 <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="An abstract visual representing justice and technology..." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvj1frTjgrpgfJya0P8QtFRwctOJcLotD3qxLYNKUa0Nztkpaemd8YE64fci9oPkSS1T8-g01ZswaS3YwQgOmsrYGJhkevSTJw3RIVmV7heQk2VLUZy0mzJHwaI8Ok-UtFu-tRTFria0TWUkRgc6_1g9NiMYbWTdjkSJ8Dcdkqps4ZiHgKj3WB1gwJO__Ct6CO7kEp95oCIz56xZtIFGdouArudHIvvivZC8rCh8-a-keRM3oAXcT1sLeTH-EPDWS-4VNt9PzBOV0')"></div>
 </div>
 <span class="font-label-sm text-label-sm text-secondary mb-3 inline-block uppercase">Emerging Tech</span>
-<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4">The Impact of AI on Future Legal Decisions</h4>
-<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2">Analyzing how artificial intelligence is being integrated into court management and legal research...</p>
+<h4 class="font-headline-md text-headline-md text-primary group-hover:text-secondary transition-colors mb-4" data-search-title>The Impact of AI on Future Legal Decisions</h4>
+<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2" data-search-description>Analyzing how artificial intelligence is being integrated into court management and legal research...</p>
 </a>
 </div>
 </section>
@@ -390,5 +402,89 @@
                 searchContainer.classList.remove('ring-2', 'ring-secondary');
             });
         }
+
+        const hubSearchInput = document.getElementById('hubSearchInput');
+        const hubSearchButton = document.getElementById('hubSearchButton');
+        const hubClearButton = document.getElementById('hubClearButton');
+        const searchResults = document.getElementById('knowledgeHubSearchResults');
+        const resultList = document.getElementById('knowledgeHubResultList');
+
+        const renderResults = (query, hits) => {
+            if (!searchResults || !resultList) return;
+            if (!query) {
+                searchResults.textContent = '';
+                searchResults.classList.add('hidden');
+                resultList.innerHTML = '';
+                return;
+            }
+
+            if (!hits.length) {
+                searchResults.classList.remove('hidden');
+                searchResults.textContent = `No results found for "${query}". Try a different keyword.`;
+                resultList.innerHTML = '';
+                return;
+            }
+
+            searchResults.classList.remove('hidden');
+            searchResults.innerHTML = `Showing ${hits.length} result${hits.length === 1 ? '' : 's'} for "<span class="search-highlight">${query}</span>".`;
+            resultList.innerHTML = hits.map(hit => {
+                return `
+                    <article class="glass-card border border-outline-variant/30 p-6 rounded-3xl bg-white shadow-sm">
+                        <div class="flex flex-col gap-2">
+                            <span class="text-sm font-semibold text-secondary">${hit.category || 'General'}</span>
+                            <h3 class="font-headline-md text-headline-md text-primary">${hit.title || 'Untitled'}</h3>
+                            <p class="text-on-surface-variant font-body-md text-body-md">${hit.text || ''}</p>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        };
+
+        const fetchKnowledgeHub = async (query) => {
+            const normalizedQuery = query.trim();
+            if (!normalizedQuery) {
+                renderResults('', []);
+                return;
+            }
+
+            try {
+                const response = await fetch(`/knowledge-search?q=${encodeURIComponent(normalizedQuery)}`);
+                if (!response.ok) {
+                    throw new Error('Search request failed');
+                }
+                const data = await response.json();
+                const hits = data.results || [];
+                renderResults(normalizedQuery, hits);
+            } catch (error) {
+                if (searchResults) {
+                    searchResults.classList.remove('hidden');
+                    searchResults.textContent = 'Unable to load results. Please try again later.';
+                }
+                if (resultList) {
+                    resultList.innerHTML = '';
+                }
+            }
+        };
+
+        if (hubSearchButton) {
+            hubSearchButton.addEventListener('click', () => {
+                fetchKnowledgeHub(hubSearchInput?.value || '');
+            });
+        }
+        if (hubClearButton) {
+            hubClearButton.addEventListener('click', () => {
+                if (hubSearchInput) hubSearchInput.value = '';
+                renderResults('', []);
+            });
+        }
+        if (hubSearchInput) {
+            hubSearchInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    fetchKnowledgeHub(hubSearchInput.value);
+                }
+            });
+        }
     </script>
+<script src="nyaya-shared.js"></script>
 </body></html>

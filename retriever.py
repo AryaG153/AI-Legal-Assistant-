@@ -4,9 +4,12 @@ import chromadb
 # Using semantic model for better legal document retrieval
 model = SentenceTransformer("sentence-transformers/nli-mpnet-base-v2")
 client = chromadb.PersistentClient(path="./chroma_db")
-collection = client.get_collection("legal_kb")
 
-def retrieve(query: str, top_k: int = 5, similarity_threshold: float = 50.0):
+def get_collection(collection_name: str = "legal_kb"):
+    return client.get_or_create_collection(collection_name)
+
+
+def retrieve(query: str, top_k: int = 5, similarity_threshold: float = 50.0, collection_name: str = "legal_kb"):
     """
     Retrieve relevant legal documents based on query.
     
@@ -20,16 +23,14 @@ def retrieve(query: str, top_k: int = 5, similarity_threshold: float = 50.0):
     """
     query = query.lower().strip()
     embedding = model.encode(query).tolist()
-    
-    # Get results from ChromaDB
+    collection = get_collection(collection_name)
+
     results = collection.query(
         query_embeddings=[embedding],
         n_results=top_k,
         include=["documents", "metadatas", "distances"]
     )
-    
-    # ChromaDB returns distances (lower is better for cosine distance)
-    # Filter by threshold
+
     if results["distances"] and len(results["distances"]) > 0:
         filtered_docs = []
         filtered_metas = []

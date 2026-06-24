@@ -116,7 +116,7 @@
 </head>
 <body class="bg-background text-on-background font-body-md selection:bg-secondary-container/30 flex min-h-screen">
 <!-- Standardized 280px Sidebar -->
-<aside class="w-[280px] bg-primary-container text-white flex flex-col fixed h-full z-50">
+<aside class="w-[280px] bg-primary-container text-white flex flex-col fixed h-full z-50" data-nyaya-sidebar>
 <div class="px-6 py-8"><span class="font-headline-md text-headline-md text-white tracking-tight">NyayaAI</span></div>
 <nav class="flex-grow px-3 space-y-1">
 <a class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-primary-container hover:bg-[#1E293B] hover:text-white transition-all duration-200 group" href="dashboard.html">
@@ -401,14 +401,15 @@
 <script>
         // Micro-interaction for search bar
         const searchInput = document.querySelector('input[type="text"]');
-        const searchContainer = searchInput.parentElement;
-        
-        searchInput.addEventListener('focus', () => {
-            searchContainer.classList.add('shadow-2xl', '-translate-y-1');
-        });
-        
-        searchInput.addEventListener('blur', () => {
-            searchContainer.classList.remove('shadow-2xl', '-translate-y-1');
-        });
+        const searchContainer = searchInput?.parentElement;
+        if (searchInput && searchContainer) {
+            searchInput.addEventListener('focus', () => {
+                searchContainer.classList.add('shadow-2xl', '-translate-y-1');
+            });
+            searchInput.addEventListener('blur', () => {
+                searchContainer.classList.remove('shadow-2xl', '-translate-y-1');
+            });
+        }
     </script>
+<script src="nyaya-shared.js"></script>
 </body></html>

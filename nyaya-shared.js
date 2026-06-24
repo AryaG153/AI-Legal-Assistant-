@@ -9,8 +9,9 @@
     'consultation-history.html',
   ];
 
-  const currentPage = window.location.pathname.split('/').pop() || 'login.html';
-  const isAppPage = routes.includes(currentPage);
+  const currentPage = window.location.pathname.split('/').pop();
+  const currentPageOrDefault = currentPage === '' || currentPage === null ? 'dashboard.html' : currentPage;
+  const isAppPage = routes.includes(currentPageOrDefault);
 
   const ensureBackdrop = () => {
     let backdrop = document.querySelector('[data-nyaya-backdrop]');

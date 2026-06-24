@@ -494,6 +494,14 @@
                 textarea.focus();
             });
         });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialQuery = urlParams.get('q')?.trim();
+        if (initialQuery) {
+            textarea.value = initialQuery;
+            setTextareaHeight();
+            sendMessage();
+        }
     });
 </script>
 </body></html>

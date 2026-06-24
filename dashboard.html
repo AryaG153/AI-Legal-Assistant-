@@ -160,7 +160,7 @@
 <p class="text-body-lg text-primary/70 mb-10">Access legal information, understand your rights, and get AI-powered legal guidance.</p>
 <div class="relative group max-w-2xl mx-auto">
 <span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-primary/40 text-2xl" data-icon="search">search</span>
-<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-full py-5 pl-16 pr-6 shadow-xl focus:ring-4 focus:ring-secondary/10 focus:border-secondary text-body-lg transition-all outline-none" placeholder="Search Articles, Laws, Rights, Legal Issues..." type="text">
+<input id="dashboardSearchInput" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-full py-5 pl-16 pr-6 shadow-xl focus:ring-4 focus:ring-secondary/10 focus:border-secondary text-body-lg transition-all outline-none" placeholder="Search Articles, Laws, Rights, Legal Issues..." type="text">
 <p class="mt-4 text-[13px] text-primary/50 text-left px-6">Search constitutional articles, legal acts, rights information, or describe a legal issue. <br class="md:hidden"> Example: <span class="text-primary/70 font-medium">Article 21, Consumer Protection Act, Salary Not Paid</span></p>
 </div>
 </section>
@@ -463,6 +463,19 @@
             });
             searchInput.addEventListener('blur', () => {
                 searchInput.parentElement.classList.remove('ring-offset-2');
+            });
+        }
+
+        const dashboardSearchInput = document.getElementById('dashboardSearchInput');
+        if (dashboardSearchInput) {
+            dashboardSearchInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    const query = dashboardSearchInput.value.trim();
+                    if (query) {
+                        window.location.href = `ai-assistant.html?q=${encodeURIComponent(query)}`;
+                    }
+                }
             });
         }
 
