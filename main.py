@@ -20,6 +20,19 @@ collection = db["queries"]
 
 ROOT_DIR = Path(__file__).resolve().parent
 
+
+def merge_results(*result_sets):
+    merged_docs = []
+    merged_metas = []
+
+    for results in result_sets:
+        docs = results.get("documents", [[]])[0] if results.get("documents") else []
+        metas = results.get("metadatas", [[]])[0] if results.get("metadatas") else []
+        merged_docs.extend(docs)
+        merged_metas.extend(metas)
+
+    return merged_docs, merged_metas
+
 @app.get("/", response_class=FileResponse)
 def read_root():
     return FileResponse(ROOT_DIR / "dashboard.html")
@@ -43,11 +56,11 @@ def ask(query: Query):
     """
     question = query.question.lower().strip()
     
-    # Retrieve relevant laws with distance threshold
-    results = retrieve(question, top_k=5, similarity_threshold=50.0)
+    # Retrieve relevant laws with distance threshold from both the main legal KB and consumer rights data
+    legal_results = retrieve(question, top_k=5, similarity_threshold=50.0)
+    consumer_results = retrieve(question, top_k=5, similarity_threshold=50.0, collection_name="consumer_rights")
 
-    laws = results["documents"][0] if results["documents"][0] else []
-    metas = results["metadatas"][0] if results["metadatas"][0] else []
+    laws, metas = merge_results(legal_results, consumer_results)
 
     # If no relevant laws found
     if not laws:
@@ -115,9 +128,9 @@ def knowledge_search(q: str):
     if not query:
         return {"results": []}
 
-    results = retrieve(query, top_k=10, similarity_threshold=50.0, collection_name="knowledge_hub")
-    docs = results.get("documents", [[]])[0] if results.get("documents") else []
-    metas = results.get("metadatas", [[]])[0] if results.get("metadatas") else []
+    knowledge_results = retrieve(query, top_k=10, similarity_threshold=50.0, collection_name="knowledge_hub")
+    consumer_results = retrieve(query, top_k=10, similarity_threshold=50.0, collection_name="consumer_rights")
+    docs, metas = merge_results(knowledge_results, consumer_results)
 
     hits = []
     for meta, doc in zip(metas, docs):

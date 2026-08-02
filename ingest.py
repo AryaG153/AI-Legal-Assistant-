@@ -38,9 +38,11 @@ def ingest_collection(csv_path: str, collection_name: str):
 def ingest():
     legal_count = ingest_collection("legal_kb.csv", "legal_kb")
     knowledge_hub_count = ingest_collection("knowledge_hub.csv", "knowledge_hub")
+    consumer_rights_count = ingest_collection("consumer-rights.csv", "consumer_rights")
 
     print(f"Ingested {legal_count} records into legal_kb collection")
     print(f"Ingested {knowledge_hub_count} records into knowledge_hub collection")
+    print(f"Ingested {consumer_rights_count} records into consumer_rights collection")
 
 
 if __name__ == "__main__":
